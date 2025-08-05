@@ -1,0 +1,100 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Scroll to running tests
+- Location: C:\Users\KasunYapa\Desktop\Playwright_Demo\tests\example.spec.ts:98:5
+
+# Error details
+
+```
+Error: locator.waitFor: Target page, context or browser has been closed
+Call log:
+  - waiting for locator('//a[contains(text(),"Running Tests")]') to be visible
+
+    at InstallPage.sclickRunningTestsLink (C:\Users\KasunYapa\Desktop\Playwright_Demo\pages\InstallPage.ts:67:34)
+    at C:\Users\KasunYapa\Desktop\Playwright_Demo\tests\example.spec.ts:113:3
+```
+
+# Test source
+
+```ts
+   1 | import { Locator , Page, expect } from '@playwright/test';
+   2 | import * as allure from "allure-js-commons";
+   3 |
+   4 |
+   5 |
+   6 | export class InstallPage {
+   7 |    page: Page;
+   8 |
+   9 |     //Locators
+  10 |     installPageHeader: Locator
+  11 |      runningTestLink: Locator
+  12 |     
+  13 |
+  14 |   constructor(page: Page) {
+  15 |     this.page = page;
+  16 |     this.installPageHeader = page.getByRole('heading', { name: 'Installation' })
+  17 |     this.runningTestLink = page.locator('//a[contains(text(),"Running Tests")]');
+  18 |   }
+  19 |
+  20 |    
+  21 | async captureScreenshot() {
+  22 |     const screenshot = await this.page.screenshot();
+  23 |     return screenshot;
+  24 |     
+  25 |   }
+  26 |
+  27 |
+  28 |   async verifyInstallationHeading() {
+  29 |
+  30 |     await this.installPageHeader.waitFor({ state: 'visible' });  //visible before asserting it.
+  31 |     await expect(this.installPageHeader).toBeVisible();      //Assert it
+  32 |     // const screenshot = await this.captureScreenshot();  // Await screenshot capture
+  33 |     // allure.attachment("Verify Install Page Heading - Screenshot", screenshot, 'image/png');  // Attach screenshot to Allure report
+  34 |   
+  35 |    /* 
+  36 |     Playwright will wait until the heading is visible before asserting it.
+  37 |     Avoids flaky behavior due to transitions or rendering delays.
+  38 |     Is much better than using waitForTimeout(1000).
+  39 |   */
+  40 |
+  41 |     /*
+  42 |
+  43 |     this.installPageHeader??
+  44 |
+  45 | You’re saying:
+  46 | "Use the installPageHeader that belongs to this object (i.e., the current instance of the class)."
+  47 |
+  48 | Without "this. " 
+  49 |
+  50 | ou would get an error, because installPageHeader doesn't exist in the method's local scope — 
+  51 | it only exists as a property of the class.
+  52 |
+  53 |     */
+  54 |
+  55 |     
+  56 |
+  57 | }
+  58 |
+  59 |     async scrollToRunningTestsLink() {
+  60 |       await this.runningTestLink.scrollIntoViewIfNeeded();
+  61 |       await this.runningTestLink.waitFor({ state: 'visible' });
+  62 |       await this.captureScreenshot(); 
+  63 |   }
+  64 |
+  65 |   async sclickRunningTestsLink() {
+  66 |       await this.runningTestLink.click();
+> 67 |       await this.runningTestLink.waitFor({ state: 'visible' });
+     |                                  ^ Error: locator.waitFor: Target page, context or browser has been closed
+  68 |       await this.captureScreenshot();
+  69 |   }
+  70 |
+  71 | }
+  72 |
+  73 |
+```

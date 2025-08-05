@@ -1,0 +1,234 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Scroll to running tests
+- Location: C:\Users\KasunYapa\Desktop\Playwright_Demo\tests\example.spec.ts:97:5
+
+# Error details
+
+```
+Error: locator.scrollIntoViewIfNeeded: Test timeout of 30000ms exceeded.
+Call log:
+  - waiting for locator('a[href="/docs/running-tests"]')
+
+    at InstallPage.scrollToRunningTestsLink (C:\Users\KasunYapa\Desktop\Playwright_Demo\pages\InstallPage.ts:61:34)
+    at C:\Users\KasunYapa\Desktop\Playwright_Demo\tests\example.spec.ts:106:24
+```
+
+# Page snapshot
+
+```yaml
+- region "Skip to main content":
+  - link "Skip to main content"
+- navigation "Main":
+  - link "Playwright logo Playwright":
+    - img "Playwright logo"
+    - text: Playwright
+  - link "Docs"
+  - link "API"
+  - button "Node.js"
+  - link "Community"
+  - link "GitHub repository"
+  - link "Discord server"
+  - button "Switch between dark and light mode (currently system mode)"
+  - button "Search (Ctrl+K)":
+    - text: Search
+    - img
+    - text: K
+- banner:
+  - heading "Playwright enables reliable end-to-end testing for modern web apps." [level=1]
+  - link "Get started"
+  - link "Star microsoft/playwright on GitHub": Star
+  - link "75k+ stargazers on GitHub": 75k+
+- main:
+  - img "Browsers (Chromium, Firefox, WebKit)"
+  - heading "Any browser • Any platform • One API" [level=3]
+  - paragraph: Cross-browser. Playwright supports all modern rendering engines including Chromium, WebKit, and Firefox.
+  - paragraph: Cross-platform. Test on Windows, Linux, and macOS, locally or on CI, headless or headed.
+  - paragraph:
+    - text: Cross-language. Use the Playwright API in
+    - link "TypeScript"
+    - text: ","
+    - link "JavaScript"
+    - text: ","
+    - link "Python"
+    - text: ","
+    - link ".NET"
+    - text: ","
+    - link "Java"
+    - text: .
+  - paragraph: Test Mobile Web. Native mobile emulation of Google Chrome for Android and Mobile Safari. The same rendering engine works on your Desktop and in the Cloud.
+  - heading [level=3]
+  - heading [level=3]
+  - heading "Resilient • No flaky tests" [level=3]
+  - paragraph: Auto-wait. Playwright waits for elements to be actionable prior to performing actions. It also has a rich set of introspection events. The combination of the two eliminates the need for artificial timeouts - the primary cause of flaky tests.
+  - paragraph: Web-first assertions. Playwright assertions are created specifically for the dynamic web. Checks are automatically retried until the necessary conditions are met.
+  - paragraph: Tracing. Configure test retry strategy, capture execution trace, videos, screenshots to eliminate flakes.
+  - heading "No trade-offs • No limits" [level=3]
+  - paragraph: Browsers run web content belonging to different origins in different processes. Playwright is aligned with the modern browsers architecture and runs tests out-of-process. This makes Playwright free of the typical in-process test runner limitations.
+  - paragraph: Multiple everything. Test scenarios that span multiple tabs, multiple origins and multiple users. Create scenarios with different contexts for different users and run them against your server, all in one test.
+  - paragraph: Trusted events. Hover elements, interact with dynamic controls, produce trusted events. Playwright uses real browser input pipeline indistinguishable from the real user.
+  - paragraph: Test frames, pierce Shadow DOM. Playwright selectors pierce shadow DOM and allow entering frames seamlessly.
+  - heading [level=3]
+  - heading [level=3]
+  - heading "Full isolation • Fast execution" [level=3]
+  - paragraph: Browser contexts. Playwright creates a browser context for each test. Browser context is equivalent to a brand new browser profile. This delivers full test isolation with zero overhead. Creating a new browser context only takes a handful of milliseconds.
+  - paragraph: Log in once. Save the authentication state of the context and reuse it in all the tests. This bypasses repetitive log-in operations in each test, yet delivers full isolation of independent tests.
+  - heading "Powerful Tooling" [level=3]
+  - paragraph:
+    - link "Codegen."
+    - text: Generate tests by recording your actions. Save them into any language.
+  - paragraph:
+    - link "Playwright inspector."
+    - text: Inspect page, generate selectors, step through the test execution, see click points, explore execution logs.
+  - paragraph:
+    - link "Trace Viewer."
+    - text: Capture all the information to investigate the test failure. Playwright trace contains test execution screencast, live DOM snapshots, action explorer, test source, and many more.
+  - heading "Chosen by companies and open source projects" [level=2]
+  - list:
+    - listitem:
+      - link "VS Code":
+        - img "VS Code"
+    - listitem:
+      - link "Bing":
+        - img "Bing"
+    - listitem:
+      - link "Outlook":
+        - img "Outlook"
+    - listitem:
+      - link "Disney+ Hotstar":
+        - img "Disney+ Hotstar"
+    - listitem:
+      - link "Material UI":
+        - img "Material UI"
+    - listitem:
+      - link "ING":
+        - img "ING"
+    - listitem:
+      - link "Adobe":
+        - img "Adobe"
+    - listitem:
+      - link "React Navigation":
+        - img "React Navigation"
+    - listitem:
+      - link "Accessibility Insights":
+        - img "Accessibility Insights"
+- contentinfo:
+  - text: Learn
+  - list:
+    - listitem:
+      - link "Getting started"
+    - listitem:
+      - link "Playwright Training"
+    - listitem:
+      - link "Learn Videos"
+    - listitem:
+      - link "Feature Videos"
+  - text: Community
+  - list:
+    - listitem:
+      - link "Stack Overflow"
+    - listitem:
+      - link "Discord"
+    - listitem:
+      - link "Twitter"
+    - listitem:
+      - link "LinkedIn"
+  - text: More
+  - list:
+    - listitem:
+      - link "GitHub"
+    - listitem:
+      - link "YouTube"
+    - listitem:
+      - link "Blog"
+    - listitem:
+      - link "Ambassadors"
+  - text: Copyright © 2025 Microsoft
+```
+
+# Test source
+
+```ts
+   1 | import { Locator , Page, expect } from '@playwright/test';
+   2 | import * as allure from "allure-js-commons";
+   3 |
+   4 |
+   5 |
+   6 | export class InstallPage {
+   7 |    page: Page;
+   8 |
+   9 |     //Locators
+  10 |     installPageHeader: Locator
+  11 |      runningTestLink: Locator
+  12 |     
+  13 |
+  14 |   constructor(page: Page) {
+  15 |     this.page = page;
+  16 |     this.installPageHeader = page.getByRole('heading', { name: 'Installation' })
+  17 |     this.runningTestLink = page.locator('a[href="/docs/running-tests"]');
+  18 |
+  19 |   }
+  20 |
+  21 |    
+  22 | async captureScreenshot() {
+  23 |     const screenshot = await this.page.screenshot();
+  24 |     return screenshot;
+  25 |     
+  26 |   }
+  27 |
+  28 |
+  29 |   async verifyInstallationHeading() {
+  30 |
+  31 |     await this.installPageHeader.waitFor({ state: 'visible' });  //visible before asserting it.
+  32 |     await expect(this.installPageHeader).toBeVisible();      //Assert it
+  33 |     // const screenshot = await this.captureScreenshot();  // Await screenshot capture
+  34 |     // allure.attachment("Verify Install Page Heading - Screenshot", screenshot, 'image/png');  // Attach screenshot to Allure report
+  35 |   
+  36 |    /* 
+  37 |     Playwright will wait until the heading is visible before asserting it.
+  38 |     Avoids flaky behavior due to transitions or rendering delays.
+  39 |     Is much better than using waitForTimeout(1000).
+  40 |   */
+  41 |
+  42 |     /*
+  43 |
+  44 |     this.installPageHeader??
+  45 |
+  46 | You’re saying:
+  47 | "Use the installPageHeader that belongs to this object (i.e., the current instance of the class)."
+  48 |
+  49 | Without "this. " 
+  50 |
+  51 | ou would get an error, because installPageHeader doesn't exist in the method's local scope — 
+  52 | it only exists as a property of the class.
+  53 |
+  54 |     */
+  55 |
+  56 |     
+  57 |
+  58 | }
+  59 |
+  60 |     async scrollToRunningTestsLink() {
+> 61 |       await this.runningTestLink.scrollIntoViewIfNeeded();
+     |                                  ^ Error: locator.scrollIntoViewIfNeeded: Test timeout of 30000ms exceeded.
+  62 |       await this.runningTestLink.waitFor({ state: 'visible' });
+  63 |       await this.captureScreenshot();
+  64 |      
+  65 |   }
+  66 |
+  67 |   async sclickRunningTestsLink() {
+  68 |       await this.runningTestLink.click();
+  69 |       await this.runningTestLink.waitFor({ state: 'visible' });
+  70 |       await this.captureScreenshot();
+  71 |   }
+  72 |
+  73 | }
+  74 |
+  75 |
+```

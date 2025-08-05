@@ -1,0 +1,86 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: installation page has heading
+- Location: C:\Users\KasunYapa\Desktop\Playwright_Demo\tests\example.spec.ts:61:5
+
+# Error details
+
+```
+Error: locator.waitFor: Target page, context or browser has been closed
+Call log:
+  - waiting for getByRole('link', { name: 'Get started' }) to be visible
+
+    at HomePage.clickGetStarted (C:\Users\KasunYapa\Desktop\Playwright_Demo\pages\HomePage.ts:52:30)
+    at C:\Users\KasunYapa\Desktop\Playwright_Demo\tests\example.spec.ts:70:21
+```
+
+# Test source
+
+```ts
+   1 | import { Locator,Page, expect } from '@playwright/test';
+   2 | import * as allure from "allure-js-commons";
+   3 |
+   4 |
+   5 | let siteURL: string ='https://playwright.dev/';
+   6 | let pageTitle: string = 'Fast and reliable end-to-end testing for modern web apps | Playwright';
+   7 |
+   8 | export class HomePage {
+   9 |
+  10 |   page: Page;
+  11 |   
+  12 |     //Locators
+  13 |     getStartedBtn: Locator
+  14 |
+  15 |   
+  16 |   constructor(page: Page) {
+  17 |    this.page=page;
+  18 |     this.getStartedBtn =page.getByRole('link', { name: 'Get started' })
+  19 |   }
+  20 |
+  21 |    async captureScreenshot() {
+  22 |     const screenshot = await this.page.screenshot();
+  23 |     return screenshot;  // Return screenshot to be used later
+  24 |   }
+  25 |
+  26 |
+  27 |   async navigate() {
+  28 |     await this.page.goto("https://playwright.dev/");
+  29 |    
+  30 |   }
+  31 |
+  32 |   
+  33 |   async verifyTitle() {
+  34 |    await expect(this.page).toHaveTitle("Fast and reliable end-to-end testing for modern web apps | Playwright")
+  35 |    
+  36 |   }
+  37 |
+  38 |
+  39 | /*
+  40 |   async verifyTitle() {
+  41 |     await expect(this.page).toHaveTitle("Fast and reliable end-to-end testing for modern web apps | Playwright");
+  42 |
+  43 |     // ✅ Add Allure Step after successful assertion
+  44 |     await allure.step("Verified homepage title successfully", async () => {
+  45 |         const screenshot = await this.page.screenshot();  // Take a screenshot
+  46 |         allure.attachment("Home Page Screenshot", screenshot, "image/png");  // Attach screenshot
+  47 |     });
+  48 | }
+  49 | */
+  50 |
+  51 |   async clickGetStarted() {
+> 52 |     await this.getStartedBtn.waitFor({ state: 'visible' });
+     |                              ^ Error: locator.waitFor: Target page, context or browser has been closed
+  53 |     //await this.page.waitForTimeout(500); // Small delay
+  54 |     await this.getStartedBtn.click();
+  55 |    
+  56 |   }
+  57 |
+  58 |  
+  59 | }
+```
