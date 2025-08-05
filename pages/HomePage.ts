@@ -52,8 +52,11 @@ export class HomePage {
     await this.getStartedBtn.waitFor({ state: 'visible' });
     //await this.page.waitForTimeout(500); // Small delay
     await this.getStartedBtn.click();
-   
   }
+
+//This Page is developed by kasun 
+// I will push my changes in to git hub
+
 
  
 }
