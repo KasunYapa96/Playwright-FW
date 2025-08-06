@@ -71,7 +71,7 @@ it only exists as a property of the class.
 
   //Im Indika and Im coding in InstallPage.ts
   //Will merge this to development
-
+//Indi after pulling git actions
 
 }
 
