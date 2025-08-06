@@ -53,7 +53,6 @@ it only exists as a property of the class.
     */
 
     
-
 }
 
     async scrollToRunningTestsLink() {
@@ -67,6 +66,12 @@ it only exists as a property of the class.
       await this.runningTestLink.waitFor({ state: 'visible' });
       await this.captureScreenshot();
   }
+
+
+
+  //Im Indika and Im coding in InstallPage.ts
+  //Will merge this to development
+//Indi after pulling git actions
 
 }
 
